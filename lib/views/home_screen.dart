@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:jiakin_app/view_models/jiakin_provider.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -8,8 +10,11 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  late JiakinProvider _jiakinProvider;
+
   @override
   Widget build(BuildContext context) {
+    _jiakinProvider = Provider.of<JiakinProvider>(context, listen: true);
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -19,7 +24,26 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: Column(
         children: [
-          Text('data'),
+          Card(
+            child: Row(
+              children: [
+                Text('dsds'),
+                Text('dsds'),
+                Text('dsds'),
+                Text('dsds'),
+              ],
+            ),
+          ),
+          Card(
+            child: Row(
+              children: [
+                Text('dsds'),
+                Text('dsds'),
+                Text('dsds'),
+                Text('dsds'),
+              ],
+            ),
+          ),
         ],
       ),
     );
