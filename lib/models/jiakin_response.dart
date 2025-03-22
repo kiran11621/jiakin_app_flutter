@@ -145,7 +145,7 @@ class Datum {
         favorites: json["favorites"],
         synopsis: json["synopsis"],
         background: json["background"],
-        season: seasonValues.map[json["season"]]!,
+        season: seasonValues.map[json["season"]],
         year: json["year"],
         broadcast: json["broadcast"] == null
             ? null
@@ -326,7 +326,7 @@ class Broadcast {
   factory Broadcast.fromJson(Map<String, dynamic> json) => Broadcast(
         day: json["day"],
         time: json["time"],
-        timezone: timezoneValues.map[json["timezone"]]!,
+        timezone: timezoneValues.map[json["timezone"]],
         string: json["string"],
       );
 
@@ -357,7 +357,7 @@ class Demographic {
 
   factory Demographic.fromJson(Map<String, dynamic> json) => Demographic(
         malId: json["mal_id"],
-        type: demographicTypeValues.map[json["type"]]!,
+        type: demographicTypeValues.map[json["type"]],
         name: json["name"],
         url: json["url"],
       );
@@ -442,7 +442,7 @@ class Title {
   });
 
   factory Title.fromJson(Map<String, dynamic> json) => Title(
-        type: titleTypeValues.map[json["type"]]!,
+        type: titleTypeValues.map[json["type"]],
         title: json["title"],
       );
 

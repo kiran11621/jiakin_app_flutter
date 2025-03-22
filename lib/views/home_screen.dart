@@ -12,9 +12,23 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   late JiakinProvider _jiakinProvider;
 
+  Future<void> apiCall() async {
+    await _jiakinProvider.fetchJiakin();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    _jiakinProvider = Provider.of(context, listen: false);
+
+    apiCall();
+  }
+
   @override
   Widget build(BuildContext context) {
-    _jiakinProvider = Provider.of<JiakinProvider>(context, listen: true);
+    _jiakinProvider = Provider.of<JiakinProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -22,30 +36,88 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         backgroundColor: Theme.of(context).navigationBarTheme.backgroundColor,
       ),
-      body: Column(
-        children: [
-          Card(
-            child: Row(
-              children: [
-                Text('dsds'),
-                Text('dsds'),
-                Text('dsds'),
-                Text('dsds'),
-              ],
+      body: ListView.builder(
+        itemCount: 10,
+        itemBuilder: (context, index) {
+          return Card(
+            child: SizedBox(
+              height: 170,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    Image.network(_jiakinProvider
+                            .response?.data?[index].images?['webp']?.imageUrl ??
+                        "-"),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 8,
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              _jiakinProvider.response?.data?[index].title ??
+                                  "--",
+                              style: Theme.of(context).textTheme.titleLarge,
+                            ),
+                            SizedBox(
+                              height: 4,
+                            ),
+                            Text(
+                              "Type: ${_jiakinProvider.response?.data?[index].type?.name ?? "--"}",
+                            ),
+                            SizedBox(
+                              height: 4,
+                            ),
+                            Text(
+                              "Episodes: ${_jiakinProvider.response?.data?[index].episodes ?? "--"}",
+                            ),
+                            SizedBox(
+                              height: 4,
+                            ),
+                            Text(
+                              "Duration: ${_jiakinProvider.response?.data?[index].duration ?? "--"}",
+                            ),
+                            SizedBox(
+                              height: 4,
+                            ),
+                            Text(
+                              "Synopsis: ${_jiakinProvider.response?.data?[index].synopsis ?? "--"}",
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 2,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
-          ),
-          Card(
-            child: Row(
-              children: [
-                Text('dsds'),
-                Text('dsds'),
-                Text('dsds'),
-                Text('dsds'),
-              ],
-            ),
-          ),
-        ],
+          );
+        },
       ),
+
+      // Column(
+      //   children: [
+      //
+      //     Card(
+      //       child: Row(
+      //         children: [
+      //           Image.network(_jiakinProvider
+      //                   .response?.data?[1].images?['webp']?.imageUrl ??
+      //               "-"),
+      //           Text('dsds'),
+      //           Text('dsds'),
+      //           Text('dsds'),
+      //         ],
+      //       ),
+      //     ),
+      //   ],
+      // ),
     );
   }
 }
